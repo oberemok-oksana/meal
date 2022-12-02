@@ -110,6 +110,10 @@ body {
   color: #aaa;
 }
 
+.subtle-dark {
+  color: #898686;
+}
+
 .card-container {
   margin: 25px auto 0;
   position: relative;
@@ -189,4 +193,9 @@ body {
 .link {
   color: black;
   text-decoration: none;
+}
+
+.iframe-center {
+  display: block;
+  text-align: center;
 }
