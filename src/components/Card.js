@@ -1,14 +1,5 @@
 import { Link } from "react-router-dom";
-
-const filterIngredients = (item) => {
-  const ingredients = [];
-  for (let ingredient in item) {
-    if (ingredient.startsWith("strIng") && item[ingredient] !== "") {
-      ingredients.push(item[ingredient]);
-    }
-  }
-  return ingredients;
-};
+import { filterIngredients } from "../helpers";
 
 const Card = (props) => {
   const ingredients = filterIngredients(props.item).join(", ");
