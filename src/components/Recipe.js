@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getInfoById } from "../api";
-import { cutYoutubeLink, filterIngredients, filterMeasures } from "../helpers";
+import { cutYoutubeLink, getIngredientsWithMeasures } from "../helpers";
 
 const Recipe = () => {
   const params = useParams();
@@ -13,11 +13,10 @@ const Recipe = () => {
     return <p>Loading...</p>;
   }
 
-  const ingredients = filterIngredients(data).join(", ") + ".";
-  const measures = filterMeasures(data).join(", ") + ".";
   const youtubeLink =
     "https://www.youtube.com/embed/" + cutYoutubeLink(data.strYoutube);
-  console.log(youtubeLink);
+
+  const mealComposition = getIngredientsWithMeasures(data);
 
   return (
     <div className="card-container">
@@ -25,9 +24,15 @@ const Recipe = () => {
         <div class="card-body">
           <h2 class="card-title">{data.strMeal}</h2>
           <span class="card-description subtle-dark">
-            Ingredients: {ingredients}
+            Ingredients:
+            <div>
+              {Object.entries(mealComposition).map(([ingredient, measure]) => (
+                <div>
+                  {ingredient}: {measure}
+                </div>
+              ))}
+            </div>
           </span>
-          <span class="card-description subtle-dark">Measures: {measures}</span>
         </div>
         <img src={data.strMealThumb} alt={data.strMea} class="card-media" />
         <span class="card-description subtle-dark">
@@ -43,7 +48,6 @@ const Recipe = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          {/* "https://www.youtube.com/watch?v=YsJXZwE5pdY" */}
         </span>
       </div>
 
