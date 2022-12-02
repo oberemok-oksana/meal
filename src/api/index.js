@@ -3,3 +3,9 @@ export const findMealByName = (name) => {
     .then((response) => response.json())
     .then((data) => data.meals);
 };
+
+export const getInfoById = (id) => {
+  return fetch(`http://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json())
+    .then((data) => data.meals[0]);
+};
