@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const filterIngredients = (item) => {
   const ingredients = [];
   for (let ingredient in item) {
@@ -23,7 +25,9 @@ const Card = (props) => {
                 ? ingredients
                 : ingredients.slice(0, 81) + "..."}
             </span>
-            <div class="card-read">Read</div>
+            <Link className="link" to={`/recipe/${props.id}`}>
+              <div class="card-read">Read</div>
+            </Link>
           </div>
           <img src={props.src} alt={props.title} class="card-media" />
         </div>
