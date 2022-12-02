@@ -8,6 +8,17 @@ export const filterIngredients = (item) => {
   return ingredients;
 };
 
+export const getIngredientsWithMeasures = (item) => {
+  const ingredients = filterIngredients(item);
+  const measures = filterMeasures(item);
+  const obj = {};
+  for (let i = 0; i < ingredients.length; i++) {
+    obj[ingredients[i]] = measures[i];
+  }
+
+  return obj;
+};
+
 export const filterMeasures = (item) => {
   const measures = [];
   for (let measure in item) {
