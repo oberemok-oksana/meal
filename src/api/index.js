@@ -9,3 +9,9 @@ export const getInfoById = (id) => {
     .then((response) => response.json())
     .then((data) => data.meals[0]);
 };
+
+export const getRandomMeal = () => {
+  return fetch("www.themealdb.com/api/json/v1/1/random.php").then((response) =>
+    response.json()
+  );
+};
