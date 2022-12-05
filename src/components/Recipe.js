@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getInfoById } from "../api";
 import { cutYoutubeLink, getIngredientsWithMeasures } from "../helpers";
 
@@ -17,12 +17,22 @@ const Recipe = () => {
     "https://www.youtube.com/embed/" + cutYoutubeLink(data.strYoutube);
 
   const mealComposition = getIngredientsWithMeasures(data);
+  const tags = data.strTags
+    ?.split(",")
+    .map((item) => "#" + item[0].toLowerCase() + item.slice(1))
+    .join("");
+  console.log(tags);
 
   return (
     <div className="card-container">
+      <Link to="/">
+        <button className="back-button">
+          <img src="/images/icons8-u-turn-to-left-32.png" alt="going back" />
+        </button>
+      </Link>
       <div class="card u-clearfix">
+        <h2 class="card-title">{data.strMeal}</h2>
         <div class="card-body">
-          <h2 class="card-title">{data.strMeal}</h2>
           <span class="card-description subtle-dark">
             Ingredients:
             <div>
@@ -49,6 +59,7 @@ const Recipe = () => {
             allowfullscreen
           ></iframe>
         </span>
+        <span class="card-description subtle-dark bold">{tags}</span>
       </div>
 
       <div class="card-shadow"></div>
