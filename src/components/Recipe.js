@@ -1,27 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
-import { getInfoById } from "../api";
+import { Link } from "react-router-dom";
 import { cutYoutubeLink, getIngredientsWithMeasures } from "../helpers";
 
-const Recipe = () => {
-  const params = useParams();
-  const { data, isLoading } = useQuery(["meal"], () =>
-    getInfoById(params.recipeId)
-  );
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+const Recipe = (props) => {
+  const { strMeal, strYoutube, strTags, strMealThumb, strInstructions } =
+    props.data;
 
   const youtubeLink =
-    "https://www.youtube.com/embed/" + cutYoutubeLink(data.strYoutube);
+    "https://www.youtube.com/embed/" + cutYoutubeLink(strYoutube);
 
-  const mealComposition = getIngredientsWithMeasures(data);
-  const tags = data.strTags
+  const mealComposition = getIngredientsWithMeasures(props.data);
+  const tags = strTags
     ?.split(",")
     .map((item) => "#" + item[0].toLowerCase() + item.slice(1))
     .join("");
-  console.log(tags);
 
   return (
     <div className="card-container">
@@ -31,7 +22,7 @@ const Recipe = () => {
         </button>
       </Link>
       <div class="card u-clearfix">
-        <h2 class="card-title">{data.strMeal}</h2>
+        <h2 class="card-title">{strMeal}</h2>
         <div class="card-body">
           <span class="card-description subtle-dark">
             Ingredients:
@@ -44,9 +35,9 @@ const Recipe = () => {
             </div>
           </span>
         </div>
-        <img src={data.strMealThumb} alt={data.strMea} class="card-media" />
+        <img src={strMealThumb} alt={strMeal} class="card-media" />
         <span class="card-description subtle-dark">
-          Instructions: {data.strInstructions}
+          Instructions: {strInstructions}
         </span>
         <span class="card-description subtle-dark iframe-center">
           <iframe
