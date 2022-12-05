@@ -3,7 +3,6 @@ import { filterIngredients } from "../helpers";
 
 const Card = (props) => {
   const ingredients = filterIngredients(props.item).join(", ");
-  console.log(ingredients);
   return (
     <li>
       <div class="card-container">
