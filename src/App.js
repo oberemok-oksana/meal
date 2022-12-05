@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import RandomMeal from "./components/RandomMeal";
-import Recipe from "./components/Recipe";
+import Meal from "./components/Meal";
 import Home from "./pages/Home";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <Home />
       </Route>
       <Route path="/recipe/:recipeId">
-        <Recipe />
+        <Meal />
       </Route>
       <Route path="/random">
         <RandomMeal />
