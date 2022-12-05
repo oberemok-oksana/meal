@@ -38,5 +38,3 @@ export const cutYoutubeLink = (text) => {
   const index = text.split("").findIndex((letter) => letter === "=");
   return text.slice(index + 1);
 };
-
-//"https://www.youtube.com/watch?v=YsJXZwE5pdY"
