@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Card from "../components/Card";
 import { findMealByName } from "../api/index";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [mealName, setMealName] = useState("");
@@ -42,7 +43,9 @@ const Home = () => {
         </form>
         <div className="random-container">
           <h2 className="subtitle">Or maybe you want random meal for today?</h2>
-          <button className="random-btn">Click here</button>
+          <Link to="/random">
+            <button className="random-btn">Click here</button>
+          </Link>
         </div>
         <ul className="meals">
           {mealsData.map((item) => (
