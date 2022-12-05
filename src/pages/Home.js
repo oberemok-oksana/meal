@@ -40,6 +40,10 @@ const Home = () => {
             Search
           </button>
         </form>
+        <div className="random-container">
+          <h2 className="subtitle">Or maybe you want random meal for today?</h2>
+          <button className="random-btn">Click here</button>
+        </div>
         <ul className="meals">
           {mealsData.map((item) => (
             <Card
