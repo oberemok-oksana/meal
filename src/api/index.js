@@ -13,5 +13,7 @@ export const getInfoById = (id) => {
 };
 
 export const getRandomMeal = () => {
-  return fetch(`${BASE}/random.php`).then((response) => response.json());
+  return fetch(`${BASE}/random.php`)
+    .then((response) => response.json())
+    .then((data) => data.meals[0]);
 };
