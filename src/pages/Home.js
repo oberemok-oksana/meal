@@ -3,6 +3,7 @@ import { useState } from "react";
 import Card from "../components/Card";
 import { findMealByName } from "../api/index";
 import { Link } from "react-router-dom";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Home = () => {
   const [mealName, setMealName] = useState("");
@@ -21,7 +22,15 @@ const Home = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="container loader">
+        <PacmanLoader
+          color="#EABF00"
+          aria-label="Loading Spinner"
+          loading={isLoading}
+        />
+      </div>
+    );
   }
 
   return (

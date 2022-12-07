@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getInfoById } from "../api";
 import Recipe from "./Recipe";
+import { PacmanLoader } from "react-spinners";
 
 const Meal = () => {
   const params = useParams();
@@ -10,7 +11,15 @@ const Meal = () => {
   );
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="container loader">
+        <PacmanLoader
+          color="#EABF00"
+          aria-label="Loading Spinner"
+          loading={isLoading}
+        />
+      </div>
+    );
   }
 
   return <Recipe data={data} />;
