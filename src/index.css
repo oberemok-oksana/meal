@@ -79,11 +79,13 @@ body {
   font-family: "Satisfy", cursive;
 }
 
-.search-form__btn:hover {
+.search-form__btn:hover,
+.value-btn:hover {
   opacity: 0.85;
 }
 
-.search-form__btn:active {
+.search-form__btn:active,
+.value-btn:active {
   transform: scale(1.02);
   transition: all 0.4s ease;
 }
@@ -262,4 +264,32 @@ body {
   z-index: 20;
   font-family: "Dancing Script", cursive;
   font-size: 22px;
+}
+
+.value-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-family: "Dancing Script", cursive;
+  font-size: 22px;
+  max-width: 450px;
+  margin: 20px auto;
+}
+
+.input {
+  font-family: "Dancing Script", cursive;
+  font-size: 22px;
+  padding: 4px 15px;
+  width: 100%;
+}
+
+.value-btn {
+  padding: 5px 10px;
+  font-family: "Dancing Script", cursive;
+  font-size: 21px;
+  font-weight: 600;
+  border-radius: 2px;
+  background-color: rgb(234, 191, 0);
+  cursor: pointer;
 }

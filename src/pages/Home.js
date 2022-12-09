@@ -41,7 +41,7 @@ const Home = () => {
     { value: "category", label: "Category" },
     { value: "area", label: "Area" },
   ];
-  console.log(selectedOption.value);
+  // console.log(selectedOption.value);
 
   return (
     <div className="App">
@@ -83,19 +83,15 @@ const Home = () => {
             },
           })}
         />
-        {/* <div>
-          <select name="filter-list" id="filter-list" class="list-choice">
-            <option value="empty">Filter by:</option>
-            <option className="option" value="main-ingredient">
-              Main ingredient
-            </option>
-            <option className="option" value="category">
-              Category
-            </option>
-            <option value="area">Area</option>
-          </select>
-        </div> */}
-
+        <div className="value-container">
+          <input
+            type="text"
+            name="value"
+            placeholder="Type here"
+            className="input"
+          />
+          <button className="value-btn">Search</button>
+        </div>
         <ul className="meals">
           {mealsData.map((item) => (
             <Card
