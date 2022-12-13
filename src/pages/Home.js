@@ -1,7 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Card from "../components/Card";
-import { findMealByName } from "../api/index";
+import {
+  filterData,
+  findMealByName,
+  getAreas,
+  getCategories,
+} from "../api/index";
 import { Link } from "react-router-dom";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import Select from "react-select";
@@ -9,13 +14,32 @@ import Select from "react-select";
 const Home = () => {
   const [mealName, setMealName] = useState("");
   const [search, setSearch] = useState("");
+  const [selectedType, setSelectedType] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const { data: mealsData, isLoading } = useQuery(["mealData", search], () =>
     findMealByName(mealName)
   );
+  const { data: areas, isLoading: isAreasLoading } = useQuery(
+    ["areas"],
+    getAreas
+  );
+
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery(
+    ["categories"],
+    getCategories
+  );
+
+  const { data: filteredData, isInitialLoading: isFilteredDataLoading } =
+    useQuery(
+      ["filteredData", selectedType?.value, selectedOption?.value],
+      () => filterData(selectedType?.value, selectedOption?.value),
+      { enabled: !!selectedType && !!selectedOption }
+    );
 
   const changeMealName = (e) => {
     setMealName(e.target.value);
+    setSelectedType(null);
+    setSelectedOption(null);
   };
 
   const submitForm = (e) => {
@@ -23,7 +47,12 @@ const Home = () => {
     setSearch(mealName);
   };
 
-  if (isLoading) {
+  if (
+    isLoading ||
+    isAreasLoading ||
+    isFilteredDataLoading ||
+    isCategoriesLoading
+  ) {
     return (
       <div className="container loader">
         <PacmanLoader
@@ -37,12 +66,21 @@ const Home = () => {
 
   const options = [
     { value: "", label: "Filter by:" },
-    { value: "ingredient", label: "Main ingredient" },
-    { value: "category", label: "Category" },
-    { value: "area", label: "Area" },
+    { value: "i", label: "Main ingredient" },
+    { value: "c", label: "Category" },
+    { value: "a", label: "Area" },
   ];
-  // console.log(selectedOption.value);
 
+  let optionsValues = [];
+
+  if (selectedType?.label === "Area") {
+    optionsValues = areas;
+  } else if (selectedType?.label === "Category") {
+    optionsValues = categories;
+  }
+
+  const meals = selectedType && selectedOption ? filteredData : mealsData;
+  console.log(selectedType);
   return (
     <div className="App">
       <div className="container">
@@ -69,8 +107,11 @@ const Home = () => {
 
         <Select
           className="select"
-          defaultValue={selectedOption}
-          onChange={setSelectedOption}
+          defaultValue={selectedType}
+          onChange={(value) => {
+            setMealName("");
+            setSelectedType(value);
+          }}
           options={options}
           placeholder="Filter by:"
           theme={(theme) => ({
@@ -83,17 +124,27 @@ const Home = () => {
             },
           })}
         />
-        <div className="value-container">
-          <input
-            type="text"
-            name="value"
-            placeholder="Type here"
-            className="input"
-          />
-          <button className="value-btn">Search</button>
-        </div>
+        <Select
+          className="select"
+          defaultValue={selectedOption}
+          onChange={(value) => {
+            setMealName("");
+            setSelectedOption(value);
+          }}
+          options={optionsValues}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: "#EABF00",
+              primary: "black",
+            },
+          })}
+        />
+
         <ul className="meals">
-          {mealsData.map((item) => (
+          {meals.map((item) => (
             <Card
               key={item.idMeal}
               id={item.idMeal}

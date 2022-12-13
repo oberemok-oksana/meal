@@ -260,13 +260,13 @@ body {
 .select {
   max-width: 450px;
   border-radius: 4px;
-  margin: 0 auto;
+  margin: 20px auto;
   z-index: 20;
   font-family: "Dancing Script", cursive;
   font-size: 22px;
 }
 
-.value-container {
+/* .value-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -292,4 +292,4 @@ body {
   border-radius: 2px;
   background-color: rgb(234, 191, 0);
   cursor: pointer;
-}
+} */
