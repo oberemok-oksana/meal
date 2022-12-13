@@ -11,8 +11,15 @@ import {
 import { Link } from "react-router-dom";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import Select from "react-select";
+import { useTranslation } from "react-i18next";
+
+const lngs = {
+  en: { nativeName: "English" },
+  ua: { nativeName: "Ukrainian" },
+};
 
 const Home = () => {
+  const { t, i18n } = useTranslation();
   const [mealName, setMealName] = useState("");
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState(null);
@@ -87,24 +94,39 @@ const Home = () => {
   return (
     <div className="App">
       <div className="container">
-        <h1 className="main-title">What meal do you prefer today?</h1>
+        <div>
+          {Object.keys(lngs).map((lng) => (
+            <button
+              className="lngs-btn"
+              key={lng}
+              style={{
+                fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
+              }}
+              type="submit"
+              onClick={() => i18n.changeLanguage(lng)}
+            >
+              {lngs[lng].nativeName}
+            </button>
+          ))}
+        </div>
+        <h1 className="main-title">{t("title")}</h1>
         <form className="search-form" onSubmit={submitForm}>
           <input
             type="text"
-            placeholder="Type name of a meal"
+            placeholder={t("inputPlaceholder")}
             name="search-input"
             className="search-form__input"
             value={mealName}
             onChange={changeMealName}
           />
           <button type="submit" className="search-form__btn">
-            Search
+            {t("search")}
           </button>
         </form>
         <div className="random-container">
-          <h2 className="subtitle">Or maybe you want random meal for today?</h2>
+          <h2 className="subtitle">{t("subtitle")}</h2>
           <Link to="/random">
-            <button className="random-btn">Click here</button>
+            <button className="random-btn">{t("click")}</button>
           </Link>
         </div>
 
@@ -117,7 +139,7 @@ const Home = () => {
             setSelectedOption(null);
           }}
           options={options}
-          placeholder="Filter by:"
+          placeholder={t("typePlaceholder")}
           theme={(theme) => ({
             ...theme,
             borderRadius: 0,
@@ -130,6 +152,7 @@ const Home = () => {
         />
         <Select
           className="select"
+          placeholder={t("optionPlaceholder")}
           value={selectedOption}
           onChange={(value) => {
             setMealName("");
