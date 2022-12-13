@@ -44,3 +44,14 @@ export const getCategories = () => {
       }))
     );
 };
+
+export const getIngredients = () => {
+  return fetch(`${BASE}/list.php?i=list`)
+    .then((response) => response.json())
+    .then((data) =>
+      data.meals.map((item) => ({
+        value: item.strIngredient,
+        label: item.strIngredient,
+      }))
+    );
+};

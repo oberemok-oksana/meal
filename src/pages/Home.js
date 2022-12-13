@@ -6,6 +6,7 @@ import {
   findMealByName,
   getAreas,
   getCategories,
+  getIngredients,
 } from "../api/index";
 import { Link } from "react-router-dom";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -27,6 +28,11 @@ const Home = () => {
   const { data: categories, isLoading: isCategoriesLoading } = useQuery(
     ["categories"],
     getCategories
+  );
+
+  const { data: ingredients, isLoading: isIngredientsLoading } = useQuery(
+    ["ingredients"],
+    getIngredients
   );
 
   const { data: filteredData, isInitialLoading: isFilteredDataLoading } =
@@ -51,7 +57,8 @@ const Home = () => {
     isLoading ||
     isAreasLoading ||
     isFilteredDataLoading ||
-    isCategoriesLoading
+    isCategoriesLoading ||
+    isIngredientsLoading
   ) {
     return (
       <div className="container loader">
@@ -73,14 +80,16 @@ const Home = () => {
 
   let optionsValues = [];
 
-  if (selectedType?.label === "Area") {
+  if (selectedType?.value === "a") {
     optionsValues = areas;
-  } else if (selectedType?.label === "Category") {
+  } else if (selectedType?.value === "c") {
     optionsValues = categories;
+  } else if (selectedType?.value === "i") {
+    optionsValues = ingredients;
   }
 
   const meals = selectedType && selectedOption ? filteredData : mealsData;
-  console.log(selectedType);
+
   return (
     <div className="App">
       <div className="container">
