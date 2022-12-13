@@ -53,13 +53,7 @@ const Home = () => {
     setSearch(mealName);
   };
 
-  if (
-    isLoading ||
-    isAreasLoading ||
-    isFilteredDataLoading ||
-    isCategoriesLoading ||
-    isIngredientsLoading
-  ) {
+  if (isAreasLoading || isCategoriesLoading || isIngredientsLoading) {
     return (
       <div className="container loader">
         <PacmanLoader
@@ -116,10 +110,11 @@ const Home = () => {
 
         <Select
           className="select"
-          defaultValue={selectedType}
+          value={selectedType}
           onChange={(value) => {
             setMealName("");
             setSelectedType(value);
+            setSelectedOption(null);
           }}
           options={options}
           placeholder="Filter by:"
@@ -135,7 +130,7 @@ const Home = () => {
         />
         <Select
           className="select"
-          defaultValue={selectedOption}
+          value={selectedOption}
           onChange={(value) => {
             setMealName("");
             setSelectedOption(value);
@@ -152,19 +147,33 @@ const Home = () => {
           })}
         />
 
-        <ul className="meals">
-          {meals.map((item) => (
-            <Card
-              key={item.idMeal}
-              id={item.idMeal}
-              title={item.strMeal}
-              area={item.strArea}
-              category={item.strCategory}
-              src={item.strMealThumb}
-              item={item}
+        {isLoading || isFilteredDataLoading ? (
+          <div className="container loader">
+            <PacmanLoader
+              color="#EABF00"
+              aria-label="Loading Spinner"
+              loading={true}
             />
-          ))}
-        </ul>
+          </div>
+        ) : (
+          <ul className="meals">
+            {!meals.length ? (
+              <p className="empty">Sorry,we don't have such meal :(</p>
+            ) : (
+              meals.map((item) => (
+                <Card
+                  key={item.idMeal}
+                  id={item.idMeal}
+                  title={item.strMeal}
+                  area={item.strArea}
+                  category={item.strCategory}
+                  src={item.strMealThumb}
+                  item={item}
+                />
+              ))
+            )}
+          </ul>
+        )}
       </div>
     </div>
   );

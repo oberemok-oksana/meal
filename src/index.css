@@ -266,30 +266,7 @@ body {
   font-size: 22px;
 }
 
-/* .value-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
+.empty {
   font-family: "Dancing Script", cursive;
   font-size: 22px;
-  max-width: 450px;
-  margin: 20px auto;
 }
-
-.input {
-  font-family: "Dancing Script", cursive;
-  font-size: 22px;
-  padding: 4px 15px;
-  width: 100%;
-}
-
-.value-btn {
-  padding: 5px 10px;
-  font-family: "Dancing Script", cursive;
-  font-size: 21px;
-  font-weight: 600;
-  border-radius: 2px;
-  background-color: rgb(234, 191, 0);
-  cursor: pointer;
-} */
