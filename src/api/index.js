@@ -17,3 +17,30 @@ export const getRandomMeal = () => {
     .then((response) => response.json())
     .then((data) => data.meals[0]);
 };
+
+export const filterData = (type, value) => {
+  return fetch(`${BASE}/filter.php?${type}=${value}`).then((response) =>
+    response.json().then((data) => data.meals)
+  );
+};
+
+export const getAreas = () => {
+  return fetch(`${BASE}/list.php?a=list`)
+    .then((response) => response.json())
+    .then((data) =>
+      data.meals
+        .filter((item) => item.strArea !== "Russian")
+        .map((item) => ({ value: item.strArea, label: item.strArea }))
+    );
+};
+
+export const getCategories = () => {
+  return fetch(`${BASE}/list.php?c=list`)
+    .then((response) => response.json())
+    .then((data) =>
+      data.meals.map((item) => ({
+        value: item.strCategory,
+        label: item.strCategory,
+      }))
+    );
+};
