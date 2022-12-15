@@ -1,4 +1,4 @@
-const BASE = "http://www.themealdb.com/api/json/v1/1";
+const BASE = "https://www.themealdb.com/api/json/v1/1";
 
 export const findMealByName = (name) => {
   return fetch(`${BASE}/search.php?s=${name}`)
