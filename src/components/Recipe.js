@@ -39,9 +39,9 @@ const Recipe = (props) => {
         <span class="card-description subtle-dark">
           Instructions: {strInstructions}
         </span>
-        <span class="card-description subtle-dark iframe-center">
+        <div class="card-description subtle-dark iframe-center responsive-iframe">
           <iframe
-            width="600"
+            // width="600"
             height="315"
             src={youtubeLink}
             title="YouTube video player"
@@ -49,7 +49,7 @@ const Recipe = (props) => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-        </span>
+        </div>
         <span class="card-description subtle-dark bold">{tags}</span>
       </div>
 
