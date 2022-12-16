@@ -154,7 +154,7 @@ const Home = () => {
           ""
         ) : (
           <Select
-            className="select"
+            className="select select-options"
             placeholder={t("optionPlaceholder")}
             value={selectedOption}
             onChange={(value) => {

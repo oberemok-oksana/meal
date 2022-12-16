@@ -238,10 +238,14 @@ body {
 .select {
   max-width: 450px;
   border-radius: 4px;
-  margin: 20px auto;
-  z-index: 20;
+  margin: 25px auto;
+  z-index: 10;
   font-family: "Dancing Script", cursive;
   font-size: 22px;
+}
+
+.select-options {
+  z-index: 5;
 }
 
 .empty {
