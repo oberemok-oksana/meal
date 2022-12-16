@@ -73,7 +73,7 @@ const Home = () => {
   }
 
   const options = [
-    { value: "", label: "Filter by:" },
+    { value: "default", label: "Filter by:" },
     { value: "i", label: "Main ingredient" },
     { value: "c", label: "Category" },
     { value: "a", label: "Area" },
@@ -90,7 +90,7 @@ const Home = () => {
   }
 
   const meals = selectedType && selectedOption ? filteredData : mealsData;
-
+  console.log(optionsValues);
   return (
     <div className="App">
       <div className="container">
@@ -150,25 +150,29 @@ const Home = () => {
             },
           })}
         />
-        <Select
-          className="select"
-          placeholder={t("optionPlaceholder")}
-          value={selectedOption}
-          onChange={(value) => {
-            setMealName("");
-            setSelectedOption(value);
-          }}
-          options={optionsValues}
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              primary25: "#EABF00",
-              primary: "black",
-            },
-          })}
-        />
+        {!optionsValues.length ? (
+          ""
+        ) : (
+          <Select
+            className="select"
+            placeholder={t("optionPlaceholder")}
+            value={selectedOption}
+            onChange={(value) => {
+              setMealName("");
+              setSelectedOption(value);
+            }}
+            options={optionsValues}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "#EABF00",
+                primary: "black",
+              },
+            })}
+          />
+        )}
 
         {isLoading || isFilteredDataLoading ? (
           <div className="container loader">
